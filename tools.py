@@ -2,8 +2,12 @@ from sys import stdout
 import numpy as np
 
 class ProgressBar():
-
+    """" Custom Progress Bar used during classification process """
     def __init__(self, total, start=False):
+        """
+        total - total number of events
+        start - automatically start when created? 
+        """
         self.total = total
         self.current = 0.0
         self.last_int = 0
@@ -16,6 +20,7 @@ class ProgressBar():
         stdout.flush()
 
     def next(self):
+        """ Increment progress bar"""
         if not self.last_int == int((self.current) / self.total * 100):
             self.update_progress(int((self.current) / self.total * 100))
             self.last_int = int((self.current) / self.total * 100)

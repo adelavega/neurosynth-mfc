@@ -4,7 +4,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-
+## Custom colors for k = 9 solution used in publication
 nine_colors = [(0.89411765336990356, 0.10196078568696976, 0.10980392247438431),
 (0.65845446095747107, 0.34122261685483596, 0.1707958535236471),
 (1.0, 0.50591311045721465, 0.0031372549487095253),
@@ -13,12 +13,50 @@ nine_colors = [(0.89411765336990356, 0.10196078568696976, 0.10980392247438431),
 (0.400002384185791, 0.4000002384185791, 0.40000002384185791), 
 (0.60083047361934883, 0.30814303335021526, 0.63169552298153153),
 (0.99850826852461868, 0.60846600392285513, 0.8492888871361229),
-(0.99315647868549117, 0.9870049982678657, 0.19915417450315812)
- ]
+(0.99315647868549117, 0.9870049982678657, 0.19915417450315812)]
+
+def plot_clf_polar(importances, palette=None, mask=None, **kwargs):
+    """ Make polar plot for classificaiton results.
+    importances - formatted importances
+    palette -  Colors to use for each region
+    mask - List of which regions to include, by default uses all """
+    import pandas as pd
+    import seaborn as sns
+    
+    if mask is not None:
+        importances = importances[importances.region.isin(mask)]
+    
+    pplot = pd.pivot_table(importances, values='importance', index='feature', columns=['region'])
+
+    if palette is None:
+        palette = sns.color_palette('Set1', importances.region.unique().shape[0])
+    if mask is not None:
+        palette = [n[0] for n in sorted(zip(np.array(palette)[np.array(mask)-1], mask), key=lambda tup: tup[1])]
+
+    return plot_polar(pplot, overplot=True, palette=palette, **kwargs)
+
 
 def plot_polar(data, n_top=3, selection='top', overplot=False, labels=None,
-               palette='husl', metric='correlation', label_size=26, threshold=None, max_val=None, return_labels=False,
-               alpha_level=1, legend=False, error_bars=None, reorder=False, method='weighted'):
+               palette='husl', reorder=False, method='weighted', metric='correlation', 
+               label_size=26, threshold=None, max_val=None,
+               alpha_level=1, legend=False, error_bars=None,):
+    """ Make a polar plot
+    data - Tabular data of shape features x classes 
+    n_top - Number of features to select
+    selection - Selection method to use `
+                (top = M strongest for each class; std = N with greatest std across all)
+    overplot - Overlap plots for each class?
+    labels - Subset of features to use (overrides auto selection by n_top)
+    palette - Color palette to use (can be label or list of colors from seaborn)
+    reorder - If True, uses hierarchical clustering to reorder axis
+    method - Method to use for clustering
+    metric - Metric to use for clustering
+    label_size - X axis label size
+    threshold - Value to draw an optional line that denotes significance threshold
+    max_val - Maximum value of y axis
+    alpha_level - transparency value for lines
+    legend - Show legend?
+    error_bars - Option bootstrapped data to draw error bars """
 
     n_panels = data.shape[1]
 
@@ -68,11 +106,13 @@ def plot_polar(data, n_top=3, selection='top', overplot=False, labels=None,
         fig, axes = plt.subplots(n_panels, 1, sharex=False, sharey=False,
                              subplot_kw=dict(polar=True))
         fig.set_size_inches((6, 6 * n_panels))
-
-    # from IPython.core.debugger import Tracer; Tracer()()
         
-    from seaborn import color_palette
-    colors = color_palette(palette, n_panels)
+    if isinstance(palette, str):
+        from seaborn import color_palette
+        colors = color_palette(palette, n_panels)
+    else:
+        colors = palette
+
     for i in range(n_panels):
         if overplot:
             alpha = 0.025
@@ -98,9 +138,7 @@ def plot_polar(data, n_top=3, selection='top', overplot=False, labels=None,
         else:
             e = None
 
-
         if error_bars is not None:
-            # ax.errorbar(theta, d, yerr=e, capsize=0, color='black', elinewidth = 3, linewidth=4.5)
             ax.errorbar(theta, d, yerr=e, capsize=0, color=colors[i], elinewidth = 3, linewidth=0)
         else:
             ax.plot(theta, d, alpha=alpha_level - 0.1, color=colors[i], linewidth=8, label=name)
@@ -124,32 +162,6 @@ def plot_polar(data, n_top=3, selection='top', overplot=False, labels=None,
     plt.tight_layout()
 
     return labels, data
-
-def plot_clf_polar(clf, cmap=None, n_topics=60, 
-    mask=None, feature_names=None, region_names=None, data_value='odds_ratio', **kwargs):
-    import pandas as pd
-    import seaborn as sns
-
-    if feature_names is None:
-        feature_names = clf.feature_names
-
-    o_fi = pd.DataFrame(getattr(clf, data_value), columns=feature_names)
-
-    # Melt feature importances, and add top_words for each feeature
-    o_fi['region'] = range(1, o_fi.shape[0] + 1)
-    o_fis_melt = pd.melt(o_fi, var_name='topic', value_name='importance', id_vars=['region'])
-    
-    if mask is not None:
-        o_fis_melt = o_fis_melt[o_fis_melt.region.isin(mask)]
-    
-    pplot = pd.pivot_table(o_fis_melt, values='importance', index='topic', columns=['region'])
-
-    if cmap is None:
-        cmap = sns.color_palette('Set1', clf.odds_ratio.shape[0])
-    if mask is not None:
-        cmap = [n[0] for n in sorted(zip(np.array(cmap)[np.array(mask)-1], mask), key=lambda tup: tup[1])]
-
-    return plot_polar(pplot, overplot=True, palette=cmap, **kwargs)
 
 
 def make_thresholded_slices(regions, colors, display_mode='z', overplot=True, binarize=True, **kwargs):

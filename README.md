@@ -1,7 +1,6 @@
 # neurosynth-mfc
 This repository contains code, data, and results for De La Vega, Chang, Banich, Wager & Yarkoni manuscript. 
 
-Pre-print of our publication is available in the preprint/ folder
 Final parcellation images are available under images/
 
-This repository will be updated when publication becomes available.
+Follow along the 'Clustering', 'Coactivation' and 'Function preference profiles' notebooks to recreate our analyses, results and visualizations from the manuscript. These notebooks are intended to allow researchers to easily perform similar analyses on other brain areas of interest.
