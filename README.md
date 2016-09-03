@@ -6,12 +6,14 @@ Final parcellation images are available under images/
 Follow along the [Clustering](Clustering.ipynb), [Coactivation](Coactivation.ipynb), and [Functional preference profiles](Functional preference profiles.ipynb) notebooks to recreate analyses, results and visualizations from the article. These notebooks are intended to allow researchers to easily perform similar analyses on other brain areas of interest.
 
 ### Requirements
+Python 2.7.x
+
 For analysis:
 - Neurosynth tools (github.com/neurosynth/neurosynth)
 - Scipy/Numpy 
 - Scikit-learn
 - joblib
-- nibabel
+- nibabel 1.x
 
 For visualization:
 - Pandas
