@@ -18,6 +18,7 @@ For analysis:
 For visualization:
 - Pandas
 - nilearn
+- seaborn
 
 Unzip pre-generated Neurosynth dataset prior to analysis
 
