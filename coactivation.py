@@ -4,6 +4,7 @@ import numpy as np
 from copy import deepcopy
 
 def mask_level(img, level):
+    """ Mask a specific level in a nifti image """
     img = deepcopy(img)
     data = img.get_data()
     data[:] = np.round(data)
