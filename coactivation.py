@@ -40,7 +40,7 @@ def coactivation_contrast(dataset, infile, regions=None, target_thresh=0.05,
     stat="pFgA_z_FDR_%s" % str(q)
 
     if regions == None:
-        regions = np.range(1, image.get_data().max() + 1)
+        regions = np.arange(1, image.get_data().max() + 1)
         
     meta_analyses = []
     for reg in regions:
