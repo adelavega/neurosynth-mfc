@@ -10,7 +10,9 @@ Python 2.7.x
 
 For analysis:
 - Neurosynth tools (github.com/neurosynth/neurosynth)
-- Scipy/Numpy 
+
+    Note: PyPI is acting strange so install directly from github: `pip install git+https://github.com/neurosynth/neurosynth.git`
+- Scipy/Numpy (Easiest way is using miniconda distribution)
 - Scikit-learn
 - joblib
 - nibabel 1.x
@@ -21,6 +23,7 @@ For visualization:
 - seaborn
 
 Unzip pre-generated Neurosynth dataset prior to analysis
+
 
 ![alt text](/preprint/Figure 2 - Labeled_clusters.png)
 
