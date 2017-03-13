@@ -1,7 +1,7 @@
 -e git://github.com/neurosynth/neurosynth.git#egg=neurosynth
-nibabel
+nibabel==1.3.0
 numpy
 joblib
 pandas
-nilearn==0.1.3
+nilearn
 seaborn
