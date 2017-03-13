@@ -1,0 +1,7 @@
+-e git://github.com/neurosynth/neurosynth.git
+nibabel
+numpy
+joblib
+pandas
+nilearn==1.3.0
+seaborn
