@@ -10,7 +10,7 @@ Interact with these notebooks live, with all dependencies preinstalled here:
 [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org:/repo/adelavega/neurosynth-mfc)
 
 ### Requirements
-- Scientific Python environment. A reccomended way to install is to use Anaconda: https://www.continuum.io/
+- Scientific Python environment. A recommended way to install is to use Anaconda: https://www.continuum.io/
 - Install library requirements using pip:
 
 `pip install -r requirements.txt`
