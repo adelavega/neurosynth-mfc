@@ -3,9 +3,12 @@ This repository contains code, data, and results for De La Vega, Chang, Banich, 
 
 Final parcellation images are available under images/
 
-Follow along the [Clustering](Clustering.ipynb), [Coactivation](Coactivation.ipynb), and [Functional preference profiles](Functional preference profiles.ipynb) notebooks to recreate analyses, results and visualizations from the article. These notebooks are intended to allow researchers to easily perform similar analyses on other brain areas of interest.
+Follow along the notebooks to recreate analyses, results and visualizations from the article. These notebooks are intended to allow researchers to easily perform similar analyses on other brain areas of interest.
 
-Interactively play with these notebooks live:
+Interact with these notebooks live, with all dependencies preinstalled here:
+
+
+
 [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org:/repo/adelavega/neurosynth-mfc)
 
 ### Requirements
