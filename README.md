@@ -14,7 +14,7 @@ Interact with these notebooks live, with all dependencies preinstalled here:
 
 `pip install -r requirements.txt`
 
-Rememebr to unzip pre-generated Neurosynth dataset prior to analysis
+Remember to unzip pre-generated Neurosynth dataset prior to analysis
 
 
 ![alt text](/preprint/Figure 2 - Labeled_clusters.png)
