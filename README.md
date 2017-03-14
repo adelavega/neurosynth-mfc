@@ -6,30 +6,15 @@ Final parcellation images are available under images/
 Follow along the notebooks to recreate analyses, results and visualizations from the article. These notebooks are intended to allow researchers to easily perform similar analyses on other brain areas of interest.
 
 Interact with these notebooks live, with all dependencies preinstalled here:
-
-
-
 [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org:/repo/adelavega/neurosynth-mfc)
 
 ### Requirements
-Python 2.7.x
+- Scientific Python environment. A reccomended way to install is to use Anaconda: https://www.continuum.io/
+- Install library requirements using pip:
 
-For analysis:
-- Neurosynth tools (github.com/neurosynth/neurosynth)
+`pip install -r requirements.txt`
 
-    -Note: PyPI is acting strange so **install directly from github**: `pip install git+https://github.com/neurosynth/neurosynth.git`
-- Scipy/Numpy (Easiest way is using miniconda distribution)
-- Scikit-learn
-- joblib
-- nibabel 1.x
-    - Note nibabel 2.x will **not** work 
-  
-For visualization:
-- Pandas
-- nilearn
-- seaborn
-
-Unzip pre-generated Neurosynth dataset prior to analysis
+Rememebr to unzip pre-generated Neurosynth dataset prior to analysis
 
 
 ![alt text](/preprint/Figure 2 - Labeled_clusters.png)
