@@ -37,7 +37,7 @@ def coactivation_contrast(dataset, infile, regions=None, target_thresh=0.05,
 
     affine = image.get_affine()
 
-    stat="pFgA_z_FDR_%s" % str(q)
+    stat="association-test_z_FDR_%s" % str(q)
 
     if regions == None:
         regions = np.arange(1, image.get_data().max() + 1)

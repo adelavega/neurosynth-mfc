@@ -1,5 +1,6 @@
 import numpy as np
-from tools import ProgressBar, mask_diagonal
+from tqdm import tqdm
+from tools import mask_diagonal
 from joblib import Parallel, delayed
 
 # Replace with a more basic sklearn function
@@ -7,7 +8,7 @@ from neurosynth.analysis.classify import classify
 
 
 def classify_parallel(classifier, scoring, region_data, importance_function):
-    """ Parallel classification function. Used to classify for each region if study 
+    """ Parallel classification function. Used to classify for each region if study
     was activated or not (typically based on neurosynth features)
     classifier: sklearn classifier
     scoring: sklearn scoring function
@@ -31,15 +32,15 @@ def log_odds_ratio(clf):
 
 class RegionalClassifier(object):
 
-    """" Object used to classify on a region by region basis (from a cluster solution) 
-    if studies activated a region using Neurosynth features (e.g. topics) 
+    """" Object used to classify on a region by region basis (from a cluster solution)
+    if studies activated a region using Neurosynth features (e.g. topics)
     as classification features """
 
     def __init__(self, dataset, mask_img, classifier=None, cv='4-Fold',
                  thresh=0.05, thresh_low=0):
         """
         dataset - Neurosynth dataset
-        mask_img - Path to Nifti image containing discrete regions coded as levels 
+        mask_img - Path to Nifti image containing discrete regions coded as levels
         classifier - sklearn classifier
         cv - cross validation strategy
         thresh - Threshold used to determine if a study is considered to have activated a region
@@ -109,18 +110,15 @@ class RegionalClassifier(object):
             self.initalize_containers()
 
         print("Classifying...")
-        pb = ProgressBar(self.n_regions, start=True)
 
-        for index, output in enumerate(Parallel(n_jobs=n_jobs)(
-                delayed(classify_parallel)(
-                    self.classifier, scoring, region_data, importance_function) for region_data in self.data)):
+        for index, output in enumerate(
+          tqdm(Parallel(n_jobs=n_jobs)(delayed(classify_parallel)(self.classifier, scoring, region_data, importance_function) for region_data in self.data))):
             self.class_score[index] = output['score']
             self.importance[index] = output['importance']
             self.predictions[index] = output['predictions']
-            pb.next()
 
     def get_formatted_importances(self, feature_names=None):
-        """ Returns a pandas table of importances for each feature for each region. 
+        """ Returns a pandas table of importances for each feature for each region.
         Optionally takes new names for each feature (i.e. nickanames) """
         import pandas as pd
         if feature_names is None:
