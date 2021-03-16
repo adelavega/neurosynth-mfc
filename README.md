@@ -26,7 +26,7 @@ and run the Jupyter notebook
 ```
 git clone https://github.com/adelavega/neurosynth-mfc.git
 cd neurosynth-mfc
-docker build . -t neuroscout-mfc
+docker build . -t neurosynth-mfc
 docker run --rm -v "$PWD":/usr/src/work -p 8888:8888 neurosynth-mfc
 ```
 This will set up a Jupyter notebook server, with the current directory
