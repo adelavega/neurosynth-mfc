@@ -25,6 +25,7 @@ and run the Jupyter notebook
 
 ```
 git clone https://github.com/adelavega/neurosynth-mfc.git
+cd neurosynth-mfc
 docker build . -t neuroscout-cli
 docker run --rm -v "$PWD":/usr/src/work -p 8888:8888 neurosynth-mfc
 ```
